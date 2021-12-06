@@ -19,9 +19,9 @@ ENV ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
 ENV GNUARMEMB_TOOLCHAIN_PATH=/gnuarmemb/gcc-arm-none-eabi-10-2020-q4-major
 
 RUN pip3 install west
-RUN mkdir -p /opt/nordic/ncs/v1.5.1
-WORKDIR /opt/nordic/ncs/v1.5.1
-RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr v1.5.1
+RUN mkdir -p /opt/nordic/ncs/v1.7.1
+WORKDIR /opt/nordic/ncs/v1.7.1
+RUN west init -m https://github.com/nrfconnect/sdk-nrf --mr v1.7.1
 RUN west update
 RUN west zephyr-export
 RUN echo "" > nrf/scripts/requirements-doc.txt
@@ -29,5 +29,5 @@ RUN pip3 install -r zephyr/scripts/requirements.txt
 RUN pip3 install -r nrf/scripts/requirements.txt
 RUN pip3 install -r bootloader/mcuboot/scripts/requirements.txt
 
-ENV ZEPHYR_BASE=/opt/nordic/ncs/v1.5.1/zephyr
+ENV ZEPHYR_BASE=/opt/nordic/ncs/v1.7.1/zephyr
 ENV PATH=$GNUARMEMB_TOOLCHAIN_PATH/bin:$PATH
