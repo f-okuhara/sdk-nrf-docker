@@ -10,8 +10,9 @@ RUN apt update && apt install -y --no-install-recommends git ninja-build gperf \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /opt/cmake
-RUN wget -O - "https://github.com/Kitware/CMake/releases/download/v3.20.6/cmake-3.20.6-linux-x86_64.sh"
-RUN bash cmake-3.20.6-linux-x86_64.sh --skip-license --prefix=/opt/cmake
+RUN wget "https://github.com/Kitware/CMake/releases/download/v3.20.6/cmake-3.20.6-linux-x86_64.sh"
+RUN bash cmake-3.20.6-linux-x86_64.sh --skip-license --prefix=/opt/cmake && rm cmake-3.20.6-linux-x86_64.sh
+ENV PATH=$PATH:/opt/cmake/bin
 
 RUN mkdir /gnuarmemb
 RUN wget -O - "https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2?revision=ca0cbf9c-9de2-491c-ac48-898b5bbc0443&la=en&hash=68760A8AE66026BCF99F05AC017A6A50C6FD832A" \
@@ -33,4 +34,4 @@ RUN pip3 install -r nrf/scripts/requirements.txt
 RUN pip3 install -r bootloader/mcuboot/scripts/requirements.txt
 
 ENV ZEPHYR_BASE=/opt/nordic/ncs/v1.7.1/zephyr
-ENV PATH=$GNUARMEMB_TOOLCHAIN_PATH/bin:/opt/cmake/bin:$PATH
+ENV PATH=$GNUARMEMB_TOOLCHAIN_PATH/bin:$PATH
